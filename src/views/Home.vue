@@ -7,12 +7,16 @@
           class="menu-button transition-all w-[72px] h-12 px-3 py-2 rounded-2xl flex justify-center items-center cursor-pointer"
           @click="toggleMenu"
         >
-          <div class="menu-text text-black dark:text-white text-2xl font-tanker">Menu</div>
+          <div class="menu-text text-black dark:text-white text-2xl font-tanker">
+            Menu
+          </div>
         </div>
       </div>
     </header>
     <main class="flex-grow flex justify-center items-center px-4 md:px-9 py-4 md:py-9">
-      <div class="w-full max-w-[800px] flex flex-col justify-center items-center content-container md:gap-2.5">
+      <div
+        class="w-full max-w-[800px] flex flex-col justify-center items-center content-container md:gap-2.5"
+      >
         <img
           class="content-item w-full h-[472px] rounded-2xl object-cover placeholder-image"
           src="/assets/about.png"
@@ -21,9 +25,10 @@
         <div
           class="content-item w-full max-w-[370px] md:max-w-[800px] text-left text-black dark:text-white text-sm font-medium font-inter"
         >
-          Hey, I'm Nijin<br /><br />I design products that just work—stuff you'd want in your hands. This spot's my
-          world: my projects, my daydreams, everything I'm about.<br /><br />I'm the one you call when you want
-          something fresh and solid. What do you say—wanna chat?
+          Hey, I'm Nijin<br /><br />I design products that just work—stuff you'd want in
+          your hands. This spot's my world: my projects, my daydreams, everything I'm
+          about.<br /><br />I'm the one you call when you want something fresh and solid.
+          What do you say—wanna chat?
         </div>
         <router-link
           to="/sayhello"
