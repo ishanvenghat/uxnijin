@@ -5,12 +5,6 @@ A Vue.js project built with Webpack.
 ![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
 ![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=white)
 
-## **\ud83d\udccc Features**
-- \ud83d\udd25 Vue.js with Webpack
-- \ud83c\udfa8 Custom Styling & Components
-- ⚡ Optimized Performance
-- 📂 Modular Structure
-
 ---
 
 ## **Project Setup**
