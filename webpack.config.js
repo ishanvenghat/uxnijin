@@ -1,14 +1,22 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { VueLoaderPlugin } from "vue-loader";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import webpack from "webpack";
 
-module.exports = {
-  mode: "development",
+/** @type {import('webpack').Configuration} */
+const config = {
+  mode: "production",
   entry: "./src/main.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(process.cwd(), "dist"),
+    filename: "app.[contenthash].js",
     publicPath: "/",
+  },
+  optimization: {
+    moduleIds: "named", // ✅ Uses meaningful names first
+    chunkIds: "named",
+    minimize: true,
   },
   module: {
     rules: [
@@ -23,43 +31,50 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "assets/",
+        type: "asset/resource", // ✅ Modern Webpack asset handling
+        generator: {
+          filename: "assets/[name][ext]",
         },
       },
     ],
   },
   plugins: [
+    new webpack.ids.DeterministicModuleIdsPlugin({
+      maxLength: 5, // ✅ Ensures large numbers like 61544
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       filename: "index.html",
     }),
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "app.[contenthash].css",
+    }),
   ],
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(process.cwd(), "src"),
     },
   },
   devServer: {
     static: [
       {
-        directory: path.join(__dirname, "public"), // ✅ Serve static files from "public/"
-        publicPath: "/", // ✅ Serve files at "/"
+        directory: path.join(process.cwd(), "public"),
+        publicPath: "/",
       },
       {
-        directory: path.join(__dirname, "dist"), // Keep "dist" for Webpack output
+        directory: path.join(process.cwd(), "dist"),
       },
     ],
     compress: true,
     port: 8080,
-    historyApiFallback: true, // For Vue Router
+    historyApiFallback: true, // ✅ For Vue Router support
   },
 };
+
+export default config; // ✅ Export as ESM
