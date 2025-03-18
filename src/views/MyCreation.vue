@@ -11,7 +11,7 @@
          </div>
        </header>
        <main class="w-full flex-grow flex flex-col justify-center items-center py-72">
-         <div class="app-list w-full max-w-[800px] flex gap-6 justify-center overflow-x-auto flex-wrap">
+         <div class="app-list w-full max-w-[800px] flex gap-6 justify-center flex-wrap">
            <creation-card v-for="creation in creations" :key="creation.title" :creation="creation" />
          </div>
        </main>
