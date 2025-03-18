@@ -2,7 +2,9 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { VueLoaderPlugin } from "vue-loader";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import  CopyWebpackPlugin from "copy-webpack-plugin"; // ✅ Add this
 import webpack from "webpack";
+
 
 /** @type {import('webpack').Configuration} */
 const config = {
@@ -34,10 +36,10 @@ const config = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        type: "asset/resource", // ✅ Modern Webpack asset handling
+        test: /\.(png|jpg|gif|svg|woff2?|eot|ttf|otf)$/,
+        type: "asset/resource",
         generator: {
-          filename: "assets/[name][ext]",
+          filename: "assets/[name].[hash][ext][query]", // ✅ Store assets inside "dist/assets/"
         },
       },
     ],
@@ -53,6 +55,11 @@ const config = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: "app.[contenthash].css",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "public/assets", to: "assets" }, // ✅ Copy "public/assets" to "dist/assets"
+      ],
     }),
   ],
   resolve: {
